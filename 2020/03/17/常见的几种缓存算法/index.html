@@ -1,12 +1,528 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="William Chu"><meta name="description" content="�����ͼ�¼"><link rel="alternative" href="/atom.xml" title="William's Blog" type="application/atom+xml"><link rel="icon" href="/favicon.png"><title>常见的几种缓存算法 - William's Blog</title>
-<link rel="stylesheet" href="/william.github.io/css/main.css">
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#2.1.6'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-<link rel="stylesheet" href="/william.github.io/js/fancybox/jquery.fancybox.min.css">
-<!--[if lt IE 9]><script>(function(a,b){a="abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video".split(" ");for(b=a.length-1;b>=0;b--)document.createElement(a[b])})()</script><![endif]-->
-<script src="/william.github.io/js/jquery-3.1.1.min.js"></script>
+  <!-- 页面元数据 -->
+  
+    <title>常见的几种缓存算法 - William&#39;s Blog</title>
+  
+    <meta name="keywords" content="缓存算法,算法">
+  
+  
+    <meta name="description" content="缓存 : 凡是位于速度相差较大的两种硬件之间，用于协调两者数据传输速度差异的结构，均可称之为缓存（Cache）。">
+  
 
-<script src="/william.github.io/js/fancybox/jquery.fancybox.min.js"></script>
-<meta name="generator" content="Hexo 4.2.0"></head><body style="opacity:0"><header class="head"><h1 class="head-title u-fl"><a href="/william.github.io/">William's Blog</a></h1><nav class="head-nav u-fr"><ul class="head-nav__list"><li class="head-nav__item"><a class="head-nav__link" href="/william.github.io/tags">标签</a></li><li class="head-nav__item"><a class="head-nav__link" href="/william.github.io/archives">目录</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__head"><time class="post__time" datetime="2020-03-17T07:26:11.606Z">2020 - 03 - 17 15:26:11</time><h1 class="post__title"><a href="/william.github.io/2020/03/17/%E5%B8%B8%E8%A7%81%E7%9A%84%E5%87%A0%E7%A7%8D%E7%BC%93%E5%AD%98%E7%AE%97%E6%B3%95/">常见的几种缓存算法</a></h1><div class="post__main echo"><h2 id="1-缓存相关概念"><a href="#1-缓存相关概念" class="headerlink" title="1.缓存相关概念"></a>1.缓存相关概念</h2><p>​        缓存 : 凡是位于速度相差较大的两种硬件之间，用于协调两者数据传输速度差异的结构，均可称之为缓存（Cache）。</p>
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css">
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/william.github.io/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div class="cover-wrapper">
+    
+      <cover class='cover post half'>
+        <div class='cover-body'>
+  <div class='a'>
+    
+    
+      <p class="title">William's Blog</p>
+    
+    
+      <p class="subtitle">记录随笔</p>
+    
+  </div>
+  <div class='b'>
+    
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <input type="text" class="input u-search-input" placeholder="" />
+          <i class="icon fas fa-search fa-fw"></i>
+        </form>
+      </div>
+    
+    <div class='menu navigation'>
+      <ul class='h-list'>
+        
+          
+            <li>
+              <a class="nav home"
+                href="/william.github.io/"
+                
+                
+                id="williamgithubio">
+                <i class='fas fa-rss fa-fw'></i>&nbsp;博客
+              </a>
+            </li>
+          
+            <li>
+              <a class="nav home"
+                href="/william.github.io/categories/"
+                
+                
+                id="williamgithubiocategories">
+                <i class='fas fa-folder-open fa-fw'></i>&nbsp;分类
+              </a>
+            </li>
+          
+            <li>
+              <a class="nav home"
+                href="/william.github.io/tags/"
+                
+                
+                id="williamgithubiotags">
+                <i class='fas fa-tags fa-fw'></i>&nbsp;标签
+              </a>
+            </li>
+          
+            <li>
+              <a class="nav home"
+                href="/william.github.io/archives/"
+                
+                
+                id="williamgithubioarchives">
+                <i class='fas fa-archive fa-fw'></i>&nbsp;归档
+              </a>
+            </li>
+          
+            <li>
+              <a class="nav home"
+                href="/william.github.io/friends/"
+                
+                
+                id="williamgithubiofriends">
+                <i class='fas fa-link fa-fw'></i>&nbsp;友链
+              </a>
+            </li>
+          
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+      </cover>
+    
+    <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow floatable">
+
+  <div class='wrapper'>
+    <div class='nav-sub container--flex'>
+      <a class="logo flat-box"></a>
+      <ul class='switcher h-list'>
+        <li><a class="s-comment flat-btn fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc flat-btn fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main container container--flex">
+      
+        
+        <a class="logo flat-box" target="_self" href='/william.github.io/'>
+          
+            <img class='logo' src='https://cdn.jsdelivr.net/gh/WilliamChuZ/blog_cdn@V1.2/img/logo/timg.jpg'/>
+          
+          
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='h-list'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/william.github.io/
+                  
+                  
+                  
+                    id="williamgithubio"
+                  >
+                  
+                    <i class='fas fa-rss fa-fw'></i>
+                  
+                  博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/william.github.io/categories/
+                  
+                  
+                  
+                    id="williamgithubiocategories"
+                  >
+                  
+                    <i class='fas fa-folder-open fa-fw'></i>
+                  
+                  分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/william.github.io/tags/
+                  
+                  
+                  
+                    id="williamgithubiotags"
+                  >
+                  
+                    <i class='fas fa-tags fa-fw'></i>
+                  
+                  标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/william.github.io/archives/
+                  
+                  
+                  
+                    id="williamgithubioarchives"
+                  >
+                  
+                    <i class='fas fa-archive fa-fw'></i>
+                  
+                  归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/william.github.io/friends/
+                  
+                  
+                  
+                    id="williamgithubiofriends"
+                  >
+                  
+                    <i class='fas fa-link fa-fw'></i>
+                  
+                  友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/william.github.io/about/
+                  
+                  
+                  
+                    id="williamgithubioabout"
+                  >
+                  
+                    <i class='fas fa-info-circle fa-fw'></i>
+                  
+                  关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      
+        <div class="m_search">
+          <form name="searchform" class="form u-search-form">
+            <i class="icon fas fa-search fa-fw"></i>
+            <input type="text" class="input u-search-input" placeholder="搜索" />
+          </form>
+        </div>
+      
+
+			<ul class='switcher h-list'>
+				
+					<li><a class="s-search flat-btn fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li><a class="s-menu flat-btn fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+	</div>
+</header>
+<ul class="menu-phone navigation white-box">
+  
+  
+    <li>
+      <a class="flat-box" href=/william.github.io/
+        
+        
+        
+          id="williamgithubio"
+        >
+        
+          <i class='fas fa-rss fa-fw'></i>
+        
+        博客
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/william.github.io/categories/
+        
+        
+        
+          id="williamgithubiocategories"
+        >
+        
+          <i class='fas fa-folder-open fa-fw'></i>
+        
+        分类
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/william.github.io/tags/
+        
+        
+        
+          id="williamgithubiotags"
+        >
+        
+          <i class='fas fa-tags fa-fw'></i>
+        
+        标签
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/william.github.io/archives/
+        
+        
+        
+          id="williamgithubioarchives"
+        >
+        
+          <i class='fas fa-archive fa-fw'></i>
+        
+        归档
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/william.github.io/friends/
+        
+        
+        
+          id="williamgithubiofriends"
+        >
+        
+          <i class='fas fa-link fa-fw'></i>
+        
+        友链
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/william.github.io/about/
+        
+        
+        
+          id="williamgithubioabout"
+        >
+        
+          <i class='fas fa-info-circle fa-fw'></i>
+        
+        关于
+      </a>
+    </li>
+  
+</ul>
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/william.github.io/2020/03/17/%E5%B8%B8%E8%A7%81%E7%9A%84%E5%87%A0%E7%A7%8D%E7%BC%93%E5%AD%98%E7%AE%97%E6%B3%95/">
+        常见的几种缓存算法
+      </a>
+    </h1>
+  
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+<div class='new-meta-item author'>
+  <a href="https://github.com/WilliamChuZ" target="_blank" rel="nofollow noopener">
+    <img src="https://cdn.jsdelivr.net/gh/WilliamChuZ/blog_cdn@V1.2/img/logo/timg.jpg">
+    <p>William</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/william.github.io/categories/cache/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>cache</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-edit" aria-hidden="true"></i>
+    <p>发布于：2020年3月17日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class='notlink'>
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <p>缓存 : 凡是位于速度相差较大的两种硬件之间，用于协调两者数据传输速度差异的结构，均可称之为缓存（Cache）。</p>
+<a id="more"></a>
+<h2 id="1-缓存相关概念"><a href="#1-缓存相关概念" class="headerlink" title="1.缓存相关概念"></a>1.缓存相关概念</h2><p>​        </p>
 <p>​        因为内存相对于硬盘读写速度更快，内存可以作为硬盘的缓存；同样的，硬盘读写速度远高于网络数据的读写速度，也可以将硬盘作为网络数据的缓存。在内存和硬盘之间，硬盘与网络之间，都存在某种意义上的Cache。</p>
 <p>​        表现上，缓存载体与被缓存载体总是相对的，缓存设备成本高于被缓存设备，缓存设备速度高于被缓存设备，缓存设备容量远远小于被缓存设备。</p>
 <p>​        缓存可以认为是数据的池子，是存储频繁使用的数据的临时的地方，缓存可以认为是原始数据的子集，它是从原始数据里复制出来的，并且为了能被取回，被加上了标志。</p>
@@ -18,9 +534,8 @@
 <h3 id="1-4-失效"><a href="#1-4-失效" class="headerlink" title="1.4.失效"></a>1.4.失效</h3><p>​        当存在缓存中的数据需要更新时，就意味着缓存中的这个数据失效了。</p>
 <h2 id="2-缓存算法"><a href="#2-缓存算法" class="headerlink" title="2. 缓存算法"></a>2. 缓存算法</h2><p>​        介于缓存只能够有限的使用内存，任何Cache系统都需要一个如何淘汰缓存的方案（缓存淘汰算法，等同于页面置换算法）。我们要根据自己的业务需要来选择使用何种算法来淘汰多余的数据，提高命中率。</p>
 <p>常用的缓存算法有：</p>
-<p><strong>LFU(Least Frequently Used)</strong></p>
-<p>​        根据数据的历史访问频率来淘汰数据，其核心思想是“如果数据过去被访问多次，那么将来被访问的频率也更高”。</p>
-<p><strong>1.LFU</strong></p>
+<h3 id="2-1-LFU-Least-Frequently-Used"><a href="#2-1-LFU-Least-Frequently-Used" class="headerlink" title="2.1.LFU(Least Frequently Used)"></a>2.1.LFU(Least Frequently Used)</h3><p>​        根据数据的历史访问频率来淘汰数据，其核心思想是“如果数据过去被访问多次，那么将来被访问的频率也更高”。</p>
+<p><strong>LFU</strong></p>
 <p>​        LFU的每个数据块都有一个引用计数，所有数据块按照引用计数排序，具有相同引用计数的数据块则按照时间排序。</p>
 <p>具体实现如下：</p>
 <p><img src="http://note.youdao.com/yws/res/725/WEBRESOURCE6f6385c37579a9db7e68077d2a20e54a" alt="img"></p>
@@ -28,17 +543,15 @@
 <p>​        访问D后,D的频率+1,也就是27了。 此时需要调整缓存池数据需要重新排序,D和C交换;</p>
 <p>​        访问B,B的频率+1,由于A的频率仍然比B大,所以不需要调整;</p>
 <p>​        当新数据F插入缓存池之前,由于已经空间满了，需要干掉一个！ 因为E的频率最低,故淘汰E,将F插入缓存池,缓存池重新排序,F放到队尾.新加入数据插入到队列尾部（因为引用计数为1）队列中的数据被访问后，引用计数增加，队列重新排序,当需要淘汰数据时，将已经排序的列表最后的数据块删除</p>
-<p><strong>LRU（LeastRecently User）</strong></p>
-<p>​        根据数据的历史访问记录来进行淘汰数据，其核心思想是“如果数据最近被访问过，那么将来被访问的几率也更高”。</p>
-<p><strong>1.LRU</strong></p>
+<h3 id="2-2-LRU（LeastRecently-User）"><a href="#2-2-LRU（LeastRecently-User）" class="headerlink" title="2.2.LRU（LeastRecently User）"></a>2.2.LRU（LeastRecently User）</h3><p>​        根据数据的历史访问记录来进行淘汰数据，其核心思想是“如果数据最近被访问过，那么将来被访问的几率也更高”。</p>
+<p><strong>LRU</strong></p>
 <p>​        最常见的实现是使用一个链表保存缓存数据，详细算法实现如下：</p>
 <p><img src="http://note.youdao.com/yws/res/723/WEBRESOURCEb95bdb597cc12a0e2fa9f0919403dc70" alt="img"></p>
 <p>​        新数据插入到链表头部；</p>
 <p>​        每当缓存命中（即缓存数据被访问），则将数据移到链表头部；</p>
 <p>​        当链表满的时候，将链表尾部的数据丢弃。</p>
 <p>​        当存在热点数据时，LRU的效率很好，但偶发性的、周期性的批量操作会导致LRU命中率急剧下降，缓存污染情况比较严重。</p>
-<p><strong>2.LRU-K(LeastRecently Used K)</strong></p>
-<p>​        相比LRU，LRU-K需要多维护一个队列，用于记录所有缓存数据被访问的历史。只有当数据的访问次数达到K次的时候，才将数据放入缓存。当需要淘汰数据时，LRU-K会淘汰第K次访问时间距当前时间最大的数据。详细实现如下：</p>
+<h3 id="2-3-LRU-K-LeastRecently-Used-K"><a href="#2-3-LRU-K-LeastRecently-Used-K" class="headerlink" title="2.3.LRU-K(LeastRecently Used K)"></a>2.3.LRU-K(LeastRecently Used K)</h3><p>​        相比LRU，LRU-K需要多维护一个队列，用于记录所有缓存数据被访问的历史。只有当数据的访问次数达到K次的时候，才将数据放入缓存。当需要淘汰数据时，LRU-K会淘汰第K次访问时间距当前时间最大的数据。详细实现如下：</p>
 <p><img src="http://note.youdao.com/yws/res/726/WEBRESOURCE15d31820f457dd5cd2e2a4db06d9a3dd" alt="img"></p>
 <p>​        数据第一次被访问，加入到访问历史列表；</p>
 <p>​        如果数据在访问历史列表里后没有达到K次访问，则按照一定规则（FIFO，LRU）淘汰；</p>
@@ -47,10 +560,8 @@
 <p>​        需要淘汰数据时，淘汰缓存队列中排在末尾的数据，即：淘汰“倒数第K次访问离现在最久”的数据。</p>
 <p>​        LRU-K中的K代表最近使用的次数，因此LRU可以认为是LRU-1。大多数情况下，LRU算法对热点数据命中率是很高的。 但如果突然大量偶发性的数据访问，会让内存中存放大量冷数据，也即是缓存污染。LRU-K的主要目的是为了解决LRU算法“缓存污染”的问题，其核心思想是将“最近使用过1次”的判断标准扩展为“最近使用过K次”。</p>
 <p>​        LRU-K具有LRU的优点，同时能够避免LRU的缺点，实际应用中LRU-2是综合各种因素后最优的选择，LRU-3或者更大的K值命中率会高，但适应性差，需要大量的数据访问才能将历史访问记录清除掉。</p>
-<p><strong>FIFO(First inFirst out)</strong></p>
-<p>​        最先进入的数据，最先被淘汰。一个很简单的算法。只要使用队列数据结构即可实现。那么FIFO淘汰算法基于的思想是”最近刚访问的，将来访问的可能性比较大”。</p>
-<p><strong>2Q(Two Queues)</strong></p>
-<p>​        同样也是为了解决LRU算法的缓存污染问题。类似于LRU-2，不同点在于2Q将LRU-2算法中的访问历史队列改为一个FIFO缓存队列，即：2Q算法有两个缓存队列，一个是FIFO队列，一个是LRU队列。</p>
+<h3 id="2-4-FIFO-First-inFirst-out"><a href="#2-4-FIFO-First-inFirst-out" class="headerlink" title="2.4.FIFO(First inFirst out)"></a>2.4.FIFO(First inFirst out)</h3><p>​        最先进入的数据，最先被淘汰。一个很简单的算法。只要使用队列数据结构即可实现。那么FIFO淘汰算法基于的思想是”最近刚访问的，将来访问的可能性比较大”。</p>
+<h3 id="2-5-2Q-Two-Queues"><a href="#2-5-2Q-Two-Queues" class="headerlink" title="2.5.2Q(Two Queues)"></a>2.5.2Q(Two Queues)</h3><p>​        同样也是为了解决LRU算法的缓存污染问题。类似于LRU-2，不同点在于2Q将LRU-2算法中的访问历史队列改为一个FIFO缓存队列，即：2Q算法有两个缓存队列，一个是FIFO队列，一个是LRU队列。</p>
 <p>​        当数据第一次访问时，2Q算法将数据缓存在FIFO队列里面，当数据第二次被访问时，则将数据从FIFO队列移到LRU队列里面，两个队列各自按照自己的方法淘汰数据。详细实现如下：</p>
 <p><img src="http://note.youdao.com/yws/res/724/WEBRESOURCE6a7e061c1c8fcfd77894caf077b8a212" alt="img"></p>
 <p>​        新访问的数据插入到FIFO队列；</p>
@@ -59,8 +570,538 @@
 <p>​        如果数据在LRU队列再次被访问，则将数据移到LRU队列头部；</p>
 <p>​        LRU队列淘汰末尾的数据。</p>
 <p>注：上图中FIFO队列比LRU队列短，但并不代表这是算法要求，实际应用中两者比例没有硬性规定。</p>
-</div></header><footer class="post__foot u-cf"><ul class="post__tag u-fl"><li class="post__tag__item"><a class="post__tag__link" href="/william.github.io/tags/%E7%BC%93%E5%AD%98%E7%AE%97%E6%B3%95/">缓存算法</a></li><li class="post__tag__item"><a class="post__tag__link" href="/william.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a></li></ul></footer></article><section class="reward"><a class="btn-reward" href="#">打赏</a><div class="reward-wrapper clearfix"><img src="/william.github.io/img/wechat.png" title="微信"></div></section></main><footer class="foot"><div class="foot-copy">&copy; 2016 - 2020 William Chu</div></footer>
-<script src="/william.github.io/js/scroller.js"></script>
 
-<script src="/william.github.io/js/main.js"></script>
-</body></html>
+          
+            <br>
+            
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+          
+        
+          
+            <p>本文永久链接是：<a href=http://yoursite.com/2020/03/17/%E5%B8%B8%E8%A7%81%E7%9A%84%E5%87%A0%E7%A7%8D%E7%BC%93%E5%AD%98%E7%AE%97%E6%B3%95/>http://yoursite.com/2020/03/17/%E5%B8%B8%E8%A7%81%E7%9A%84%E5%87%A0%E7%A7%8D%E7%BC%93%E5%AD%98%E7%AE%97%E6%B3%95/</a></p>
+          
+        
+      </blockquote>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <fancybox><img src='https://cdn.jsdelivr.net/gh/WilliamChuZ/blog_cdn@V1.2/img/qr/wechat.png'
+        
+          height='64px'
+        ></fancybox>
+      
+    
+  </div>
+</section>
+
+  
+
+
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-03-19T17:34:22+08:00">
+  <a class='notlink'>
+    <i class="fas fa-save" aria-hidden="true"></i>
+    <p>更新于：2020年3月19日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/william.github.io/tags/%E7%BC%93%E5%AD%98%E7%AE%97%E6%B3%95/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i><p>缓存算法</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/william.github.io/tags/%E7%AE%97%E6%B3%95/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i><p>算法</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/03/17/%E5%B8%B8%E8%A7%81%E7%9A%84%E5%87%A0%E7%A7%8D%E7%BC%93%E5%AD%98%E7%AE%97%E6%B3%95/&title=常见的几种缓存算法 - William's Blog&summary=缓存 : 凡是位于速度相差较大的两种硬件之间，用于协调两者数据传输速度差异的结构，均可称之为缓存（Cache）。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://yoursite.com/2020/03/17/%E5%B8%B8%E8%A7%81%E7%9A%84%E5%87%A0%E7%A7%8D%E7%BC%93%E5%AD%98%E7%AE%97%E6%B3%95/&title=常见的几种缓存算法 - William's Blog&summary=缓存 : 凡是位于速度相差较大的两种硬件之间，用于协调两者数据传输速度差异的结构，均可称之为缓存（Cache）。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/03/17/%E5%B8%B8%E8%A7%81%E7%9A%84%E5%87%A0%E7%A7%8D%E7%BC%93%E5%AD%98%E7%AE%97%E6%B3%95/&title=常见的几种缓存算法 - William's Blog&summary=缓存 : 凡是位于速度相差较大的两种硬件之间，用于协调两者数据传输速度差异的结构，均可称之为缓存（Cache）。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <a class='prev' href='/william.github.io/2020/03/19/SpringMVC%E6%B5%81%E7%A8%8B/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>SpringMVC流程</p>
+                <p class='content'>SpringMVC是什么： 
+　　SpringMVC是一个MVC的开源框架，SpringMVC=Struts2+Spring，SpringMVC就相当于是Struts2加上Spring的整合，但...</p>
+              </a>
+            
+            
+              <a class='next' href='/william.github.io/2020/03/17/hello-world/'>
+                <p class='title'>Hello World<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any ...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-spinner fa-spin fa-fw"></i>
+          </div>
+        </section>
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: '常见的几种缓存算法',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+  <section class="widget toc-wrapper floatable desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-缓存相关概念"><span class="toc-text">1.缓存相关概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-命中与回源"><span class="toc-text">1.1.命中与回源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-缓存未命中-Cache-Miss"><span class="toc-text">1.2.缓存未命中(Cache Miss)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-存储成本"><span class="toc-text">1.3.存储成本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-失效"><span class="toc-text">1.4.失效</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-缓存算法"><span class="toc-text">2. 缓存算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-LFU-Least-Frequently-Used"><span class="toc-text">2.1.LFU(Least Frequently Used)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-LRU（LeastRecently-User）"><span class="toc-text">2.2.LRU（LeastRecently User）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-LRU-K-LeastRecently-Used-K"><span class="toc-text">2.3.LRU-K(LeastRecently Used K)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-FIFO-First-inFirst-out"><span class="toc-text">2.4.FIFO(First inFirst out)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-2Q-Two-Queues"><span class="toc-text">2.5.2Q(Two Queues)</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+  
+  <footer class="clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='340px'
+      server='netease'
+      type='playlist'
+      id='4921555213'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="mailto:me@1065507133@qq.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/WilliamChuZ"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/user/home?id=251740674"
+                class="social fas fa-headphones-alt flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>Blog content follows the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
+</div>
+      
+    
+      
+        Use
+        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
+        as theme
+        
+          , 
+          total visits
+          <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
+          times
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://github.com/WilliamChuZ" target="_blank" rel="noopener">Copyright © 2017-2020 William</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/william.github.io/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/WilliamChuZ/blog_cdn@V1.2/img/banner/A013C4E7C.jpeg", "https://cdn.jsdelivr.net/gh/WilliamChuZ/blog_cdn@V1.2/img/banner/A02911841.jpg", "https://cdn.jsdelivr.net/gh/WilliamChuZ/blog_cdn@V1.2/img/banner/A03E5DF6B.jpeg", "https://cdn.jsdelivr.net/gh/WilliamChuZ/blog_cdn@V1.2/img/banner/A0465259E.jpeg", "https://cdn.jsdelivr.net/gh/WilliamChuZ/blog_cdn@V1.2/img/banner/A055586518.jpg", "https://cdn.jsdelivr.net/gh/WilliamChuZ/blog_cdn@V1.2/img/banner/A065586474.jpg", "https://cdn.jsdelivr.net/gh/WilliamChuZ/blog_cdn@V1.2/img/banner/A0745F17A.jpeg", "https://cdn.jsdelivr.net/gh/WilliamChuZ/blog_cdn@V1.2/img/banner/A083FF21B.jpeg", "https://cdn.jsdelivr.net/gh/WilliamChuZ/blog_cdn@V1.2/img/banner/A091B63B0.jpeg", "https://cdn.jsdelivr.net/gh/WilliamChuZ/blog_cdn@V1.2/img/banner/A10911842.jpg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('') {
+          $('').backstretch(
+            imgs,
+          {
+            duration: "10000",
+            fade: "3000"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "10000",
+            fade: "3000"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js" async></script>
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js" async></script>
+
+  
+
+
+
+
+
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.0/js/valine.js"></script>
+
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var notify = 'true' == true;
+  var verify = 'true' == true;
+  var valine = new Valine();
+  valine.init({
+    el: '#valine_container',
+    notify: notify,
+    verify: verify,
+    guest_info: guest_info,
+    
+    appId: "AwUcaf85CiRvzrGPYxGVnqEe-gzGzoHsz",
+    appKey: "5zphnRmDmxyGhil8AR2bLY9I",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'mp',
+    lang:'zh-cn',
+    visitor: 'false',
+    highlight:'true'
+  })
+  </script>
+
+
+
+  
+<script src="/william.github.io/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.1/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copyed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-clipboard-check');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPYED';
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-exclamation-triangle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+
+  <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>

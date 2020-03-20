@@ -16,12 +16,12 @@
 
   <!-- 页面元数据 -->
   
-    <title>Hello World - William&#39;s Blog</title>
+    <title>SpringMVC常用注解 - William&#39;s Blog</title>
   
-    <meta name="keywords" content="Hello World">
+    <meta name="keywords" content="Spring,SpringMVC">
   
   
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in trouble...">
+    <meta name="description" content="　　Spring提供了一系列注解，有很多作用，此处对spring核心包注解和部分常用注解做归纳和总结。">
   
 
   <!-- feed -->
@@ -435,8 +435,8 @@
         
   
     <h1 class="title">
-      <a href="/william.github.io/2020/03/17/hello-world/">
-        Hello World
+      <a href="/william.github.io/2020/03/19/SpringMVC%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3/">
+        SpringMVC常用注解
       </a>
     </h1>
   
@@ -462,9 +462,9 @@
             
   
   <div class='new-meta-item category'>
-    <a href='/william.github.io/categories/Hexo/' rel="nofollow">
+    <a href='/william.github.io/categories/Spring/' rel="nofollow">
       <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>Hexo</p>
+      <p>Spring</p>
     </a>
   </div>
 
@@ -475,7 +475,7 @@
             <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-edit" aria-hidden="true"></i>
-    <p>发布于：2020年3月17日</p>
+    <p>发布于：2020年3月19日</p>
   </a>
 </div>
 
@@ -520,21 +520,29 @@
       <section class="article typo">
         <div class="article-entry" itemprop="articleBody">
           
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+          <p>　　Spring提供了一系列注解，有很多作用，此处对spring核心包注解和部分常用注解做归纳和总结。</p>
 <a id="more"></a>
 
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<p>** 组件型注解：**<br>@Component 在类定义之前添加@Component注解，他会被spring容器识别，并转为bean。<br>@Repository 对Dao实现类进行注解 (特殊的@Component)<br>@Service 用于对业务逻辑层进行注解， (特殊的@Component)<br>@Controller 用于控制层注解 ， (特殊的@Component)，</p>
+<h3 id="1-Controller"><a href="#1-Controller" class="headerlink" title="1.@Controller"></a>1.@Controller</h3><p>　　在SpringMVC 中，控制器Controller 负责处理由DispatcherServlet 分发的请求，它把用户请求的数据经过业务处理层处理之后封装成一个Model ，然后再把该Model 返回给对应的View 进行展示。在SpringMVC 中提供了一个非常简便的定义Controller 的方法，你无需继承特定的类或实现特定的接口，只需使用@Controller 标记一个类是Controller ，然后使用@RequestMapping 和@RequestParam 等一些注解用以定义URL 请求和Controller 方法之间的映射，这样的Controller 就能被外界访问到。此外Controller 不会直接依赖于HttpServletRequest 和HttpServletResponse 等HttpServlet 对象，它们可以通过Controller 的方法参数灵活的获取到。<br>　　@Controller 用于标记在一个类上，使用它标记的类就是一个SpringMVC Controller对象。分发处理器将会扫描使用了该注解的类的方法，并检测该方法是否使用了@RequestMapping 注解。@Controller 只是定义了一个控制器类，而使用@RequestMapping 注解的方法才是真正处理请求的处理器。单单使用@Controller 标记在一个类上还不能真正意义上的说它就是SpringMVC 的一个控制器类，因为这个时候Spring 还不认识它。那么要如何做Spring 才能认识它呢？这个时候就需要我们把这个控制器类交给Spring 来管理。有两种方式：<br>　　（1）在SpringMVC 的配置文件中定义MyController 的bean 对象。<br>　　（2）在SpringMVC 的配置文件中告诉Spring 该到哪里去找标记为@Controller 的Controller 控制器。</p>
+<!--方式一-->
+<pre><code>&lt;bean class=&quot;com.host.app.web.controller.MyController&quot;/&gt;</code></pre><!--方式二-->
+<pre><code>&lt; context:component-scan base-package = &quot;com.host.app.web&quot; /&gt;//路径写到controller的上一层(扫描包详解见下面浅析)</code></pre><h3 id="2-RequestMapping"><a href="#2-RequestMapping" class="headerlink" title="2.@RequestMapping"></a>2.@RequestMapping</h3><p>　　RequestMapping是一个用来处理请求地址映射的注解，可用于类或方法上。用于类上，表示类中的所有响应请求的方法都是以该地址作为父路径。<br>RequestMapping注解有六个属性，下面我们把她分成三类进行说明（下面有相应示例）。<br>1、 value， method；<br>　　value：     指定请求的实际地址，指定的地址可以是URI Template 模式（后面将会说明）；<br>　　method：  指定请求的method类型， GET、POST、PUT、DELETE等；<br>2、consumes，produces<br>　　consumes： 指定处理请求的提交内容类型（Content-Type），例如application/json, text/html;<br>　　produces:    指定返回的内容类型，仅当request请求头中的(Accept)类型中包含该指定类型才返回；<br>3、params，headers<br>　　params： 指定request中必须包含某些参数值是，才让该方法处理。<br>　　headers： 指定request中必须包含某些指定的header值，才能让该方法处理请求。</p>
+<h3 id="3-Resource和-Autowired"><a href="#3-Resource和-Autowired" class="headerlink" title="3.@Resource和@Autowired"></a>3.@Resource和@Autowired</h3><p>　　@Resource和@Autowired都是做bean的注入时使用，其实@Resource并不是Spring的注解，它的包是javax.annotation.Resource，需要导入，但是Spring支持该注解的注入。<br>** 1、共同点**<br>　　两者都可以写在字段和setter方法上。两者如果都写在字段上，那么就不需要再写setter方法。<br>** 2、不同点**<br>（1）@Autowired<br>　　@Autowired为Spring提供的注解，需要导入包<code>org.springframework.beans.factory.annotation.Autowired;</code>只按照byType注入。</p>
+<figure class="highlight plain"><figcaption><span>class TestServiceImpl &#123;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">    &#x2F;&#x2F; 下面两种@Autowired只要使用一种即可</span><br><span class="line">    @Autowired</span><br><span class="line">    private UserDao userDao; &#x2F;&#x2F; 用于字段上</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    public void setUserDao(UserDao userDao) &#123; &#x2F;&#x2F; 用于属性的方法上</span><br><span class="line">	this.userDao &#x3D; userDao;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>　　@Autowired注解是按照类型（byType）装配依赖对象，默认情况下它要求依赖对象必须存在，如果允许null值，可以设置它的required属性为false。如果我们想使用按照名称（byName）来装配，可以结合@Qualifier注解一起使用。如下：</p>
+<figure class="highlight plain"><figcaption><span>class TestServiceImpl &#123;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">    @Autowired</span><br><span class="line">    @Qualifier(&quot;userDao&quot;)</span><br><span class="line">    private UserDao userDao; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（2）@Resource<br>　　@Resource默认按照ByName自动注入，由J2EE提供，需要导入包javax.annotation.Resource。@Resource有两个重要的属性：name和type，而Spring将@Resource注解的name属性解析为bean的名字，而type属性则解析为bean的类型。所以，如果使用name属性，则使用byName的自动注入策略，而使用type属性时则使用byType自动注入策略。如果既不制定name也不制定type属性，这时将通过反射机制使用byName自动注入策略。</p>
+<figure class="highlight plain"><figcaption><span>class TestServiceImpl &#123;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">    &#x2F;&#x2F; 下面两种@Resource只要使用一种即可</span><br><span class="line">    @Resource(name&#x3D;&quot;userDao&quot;)</span><br><span class="line">    private UserDao userDao; &#x2F;&#x2F; 用于字段上</span><br><span class="line">    </span><br><span class="line">    @Resource(name&#x3D;&quot;userDao&quot;)</span><br><span class="line">    public void setUserDao(UserDao userDao) &#123; &#x2F;&#x2F; 用于属性的setter方法上</span><br><span class="line">        this.userDao &#x3D; userDao;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注：最好是将@Resource放在setter方法上，因为这样更符合面向对象的思想，通过set、get去操作属性，而不是直接去操作属性。<br>@Resource装配顺序：<br>①如果同时指定了name和type，则从Spring上下文中找到唯一匹配的bean进行装配，找不到则抛出异常。<br>②如果指定了name，则从上下文中查找名称（id）匹配的bean进行装配，找不到则抛出异常。<br>③如果指定了type，则从上下文中找到类似匹配的唯一bean进行装配，找不到或是找到多个，都会抛出异常。<br>④如果既没有指定name，又没有指定type，则自动按照byName方式进行装配；如果没有匹配，则回退为一个原始类型进行匹配，如果匹配则自动装配。<br>@Resource的作用相当于@Autowired，只不过@Autowired按照byType自动注入。</p>
+<h3 id="4-ModelAttribute和-SessionAttributes"><a href="#4-ModelAttribute和-SessionAttributes" class="headerlink" title="4.@ModelAttribute和 @SessionAttributes"></a>4.@ModelAttribute和 @SessionAttributes</h3><p>　　代表的是：该Controller的所有方法在调用前，先执行此@ModelAttribute方法，可用于注解和方法参数中，可以把这个@ModelAttribute特性，应用在BaseController当中，所有的Controller继承BaseController，即可实现在调用Controller时，先执行@ModelAttribute方法。<br> @SessionAttributes即将值放到session作用域中，写在class上面。<br>具体示例参见下面：使用 @ModelAttribute 和 @SessionAttributes 传递和保存数据</p>
+<h3 id="5-PathVariable"><a href="#5-PathVariable" class="headerlink" title="5.@PathVariable"></a>5.@PathVariable</h3><p>　　用于将请求URL中的模板变量映射到功能处理方法的参数上，即取出uri模板中的变量作为参数。如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public class TestController &#123;  </span><br><span class="line">     @RequestMapping(value&#x3D;&quot;&#x2F;user&#x2F;&#123;userId&#125;&#x2F;roles&#x2F;&#123;roleId&#125;&quot;,method &#x3D; RequestMethod.GET)  </span><br><span class="line">     public String getLogin(@PathVariable(&quot;userId&quot;) String userId,  </span><br><span class="line">         @PathVariable(&quot;roleId&quot;) String roleId)&#123;  </span><br><span class="line">         System.out.println(&quot;User Id : &quot; + userId);  </span><br><span class="line">         System.out.println(&quot;Role Id : &quot; + roleId);  </span><br><span class="line">         return &quot;hello&quot;;  </span><br><span class="line">     &#125;  </span><br><span class="line">     @RequestMapping(value&#x3D;&quot;&#x2F;product&#x2F;&#123;productId&#125;&quot;,method &#x3D; RequestMethod.GET)  </span><br><span class="line">     public String getProduct(@PathVariable(&quot;productId&quot;) String productId)&#123;  </span><br><span class="line">           System.out.println(&quot;Product Id : &quot; + productId);  </span><br><span class="line">           return &quot;hello&quot;;  </span><br><span class="line">     &#125;  </span><br><span class="line">     @RequestMapping(value&#x3D;&quot;&#x2F;javabeat&#x2F;&#123;regexp1:[a-z-]+&#125;&quot;,  </span><br><span class="line">           method &#x3D; RequestMethod.GET)  </span><br><span class="line">     public String getRegExp(@PathVariable(&quot;regexp1&quot;) String regexp1)&#123;  </span><br><span class="line">           System.out.println(&quot;URI Part 1 : &quot; + regexp1);  </span><br><span class="line">           return &quot;hello&quot;;  </span><br><span class="line">     &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="6-requestParam"><a href="#6-requestParam" class="headerlink" title="6.@requestParam"></a>6.@requestParam</h3><p>　　@requestParam主要用于在SpringMVC后台控制层获取参数，类似一种是request.getParameter(“name”)，它有三个常用参数：defaultValue = “0”, required = false, value = “isApp”；defaultValue 表示设置默认值，required 铜过boolean设置是否是必须要传入的参数，value 值表示接受的传入的参数类型。</p>
+<h3 id="7-ResponseBody"><a href="#7-ResponseBody" class="headerlink" title="7.@ResponseBody"></a>7.@ResponseBody</h3><p>　　作用： 该注解用于将Controller的方法返回的对象，通过适当的HttpMessageConverter转换为指定格式后，写入到Response对象的body数据区。<br>使用时机：返回的数据不是html标签的页面，而是其他某种格式的数据时（如json、xml等）使用；</p>
+<h3 id="8-Component"><a href="#8-Component" class="headerlink" title="8.@Component"></a>8.@Component</h3><p>　　相当于通用的注解，当不知道一些类归到哪个层时使用，但是不建议。</p>
+<h3 id="9-Repository"><a href="#9-Repository" class="headerlink" title="9.@Repository"></a>9.@Repository</h3><p>　　用于注解dao层，在daoImpl类上面注解。</p>
 
           
             <br>
@@ -554,7 +562,7 @@
           
         
           
-            <p>本文永久链接是：<a href=http://yoursite.com/2020/03/17/hello-world/>http://yoursite.com/2020/03/17/hello-world/</a></p>
+            <p>本文永久链接是：<a href=http://yoursite.com/2020/03/19/SpringMVC%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3/>http://yoursite.com/2020/03/19/SpringMVC%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3/</a></p>
           
         
       </blockquote>
@@ -596,10 +604,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-03-18T17:49:06+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-03-19T17:57:30+08:00">
   <a class='notlink'>
     <i class="fas fa-save" aria-hidden="true"></i>
-    <p>更新于：2020年3月18日</p>
+    <p>更新于：2020年3月19日</p>
   </a>
 </div>
 
@@ -608,7 +616,7 @@
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/william.github.io/tags/Hello-World/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i><p>Hello World</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/william.github.io/tags/Spring/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i><p>Spring</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/william.github.io/tags/SpringMVC/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i><p>SpringMVC</p></a></div>
 
 
         
@@ -626,7 +634,7 @@
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/03/17/hello-world/&title=Hello World - William's Blog&summary=Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub."
+          href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/03/19/SpringMVC%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3/&title=SpringMVC常用注解 - William's Blog&summary=　　Spring提供了一系列注解，有很多作用，此处对spring核心包注解和部分常用注解做归纳和总结。"
           
           >
           
@@ -638,7 +646,7 @@
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://yoursite.com/2020/03/17/hello-world/&title=Hello World - William's Blog&summary=Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub."
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://yoursite.com/2020/03/19/SpringMVC%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3/&title=SpringMVC常用注解 - William's Blog&summary=　　Spring提供了一系列注解，有很多作用，此处对spring核心包注解和部分常用注解做归纳和总结。"
           
           >
           
@@ -650,7 +658,7 @@
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
           
-          href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/03/17/hello-world/&title=Hello World - William's Blog&summary=Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub."
+          href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/03/19/SpringMVC%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3/&title=SpringMVC常用注解 - William's Blog&summary=　　Spring提供了一系列注解，有很多作用，此处对spring核心包注解和部分常用注解做归纳和总结。"
           
           >
           
@@ -674,14 +682,11 @@
         
           <div class="prev-next">
             
-              <a class='prev' href='/william.github.io/2020/03/17/%E5%B8%B8%E8%A7%81%E7%9A%84%E5%87%A0%E7%A7%8D%E7%BC%93%E5%AD%98%E7%AE%97%E6%B3%95/'>
-                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>常见的几种缓存算法</p>
-                <p class='content'>缓存 : 凡是位于速度相差较大的两种硬件之间，用于协调两者数据传输速度差异的结构，均可称之为缓存（Cache）。
-
-1.缓存相关概念​        
-​        因为内存相对于硬盘读写速...</p>
-              </a>
             
+              <a class='next' href='/william.github.io/2020/03/19/Spring%E4%B8%8ESpringMVC%E7%9A%84%E5%8C%BA%E5%88%AB/'>
+                <p class='title'>Spring与SpringMVC的区别<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>1.Spring的介绍​        Spring是一个一站式的框架，提供了表现层（SpringMVC）到业务层（Spring）再到数据层（SpringData)的全套解决方案；Spring的...</p>
+              </a>
             
           </div>
         
@@ -723,7 +728,7 @@
 
   <script>
     window.subData = {
-      title: 'Hello World',
+      title: 'SpringMVC常用注解',
       tools: true
     }
   </script>
@@ -749,7 +754,7 @@
 
 
     <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Controller"><span class="toc-text">1.@Controller</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-RequestMapping"><span class="toc-text">2.@RequestMapping</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Resource和-Autowired"><span class="toc-text">3.@Resource和@Autowired</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-ModelAttribute和-SessionAttributes"><span class="toc-text">4.@ModelAttribute和 @SessionAttributes</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-PathVariable"><span class="toc-text">5.@PathVariable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-requestParam"><span class="toc-text">6.@requestParam</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-ResponseBody"><span class="toc-text">7.@ResponseBody</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-Component"><span class="toc-text">8.@Component</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-Repository"><span class="toc-text">9.@Repository</span></a></li></ol>
     </div>
   </section>
 

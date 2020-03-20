@@ -16,12 +16,13 @@
 
   <!-- 页面元数据 -->
   
-    <title>Hello World - William&#39;s Blog</title>
+    <title>SpringMVC流程 - William&#39;s Blog</title>
   
-    <meta name="keywords" content="Hello World">
+    <meta name="keywords" content="Spring,SpringMVC">
   
   
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in trouble...">
+    <meta name="description" content="SpringMVC是什么： 
+　　SpringMVC是一个MVC的开源框架，SpringMVC=Struts2+Spring，SpringMVC就相当于是Struts2加上Spring的整合，但是这里有一个疑惑就是，SpringMVC和Spring是什么样的关系呢？">
   
 
   <!-- feed -->
@@ -435,8 +436,8 @@
         
   
     <h1 class="title">
-      <a href="/william.github.io/2020/03/17/hello-world/">
-        Hello World
+      <a href="/william.github.io/2020/03/19/SpringMVC%E6%B5%81%E7%A8%8B/">
+        SpringMVC流程
       </a>
     </h1>
   
@@ -462,9 +463,9 @@
             
   
   <div class='new-meta-item category'>
-    <a href='/william.github.io/categories/Hexo/' rel="nofollow">
+    <a href='/william.github.io/categories/Spring/' rel="nofollow">
       <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>Hexo</p>
+      <p>Spring</p>
     </a>
   </div>
 
@@ -475,7 +476,7 @@
             <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-edit" aria-hidden="true"></i>
-    <p>发布于：2020年3月17日</p>
+    <p>发布于：2020年3月19日</p>
   </a>
 </div>
 
@@ -520,21 +521,76 @@
       <section class="article typo">
         <div class="article-entry" itemprop="articleBody">
           
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<a id="more"></a>
-
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+          <p><strong>SpringMVC是什么：</strong> </p>
+<p>　　SpringMVC是一个MVC的开源框架，SpringMVC=Struts2+Spring，SpringMVC就相当于是Struts2加上Spring的整合，但是这里有一个疑惑就是，SpringMVC和Spring是什么样的关系呢？<a id="more"></a>这个在百度百科上有一个很好的解释：意思是说，SpringMVC是Spring的一个后续产品，其实就是Spring在原有基础上，又提供了Web应用的MVC模块，可以简单的把SpringMVC理解为是Spring的一个模块（类似AOP，IOC这样的模块），网络上经常会说SpringMVC和Spring无缝集成，其实SpringMVC就是Spring的一个子模块，所以根本不需要同Spring进行整合。</p>
+<p><img src="https://images2015.cnblogs.com/blog/249993/201612/249993-20161212142542042-2117679195.jpg" alt="img"></p>
+<h2 id="SpringMVC流程"><a href="#SpringMVC流程" class="headerlink" title="SpringMVC流程"></a>SpringMVC流程</h2><p>1、  用户发送请求至前端控制器DispatcherServlet。</p>
+<p>2、  DispatcherServlet收到请求调用HandlerMapping处理器映射器。</p>
+<p>3、  处理器映射器找到具体的处理器(可以根据xml配置、注解进行查找)，生成处理器对象及处理器拦截器(如果有则生成)一并返回给DispatcherServlet。</p>
+<p>4、  DispatcherServlet调用HandlerAdapter处理器适配器。</p>
+<p>5、  HandlerAdapter经过适配调用具体的处理器(Controller，也叫后端控制器)。</p>
+<p>6、  Controller执行完成返回ModelAndView。</p>
+<p>7、  HandlerAdapter将controller执行结果ModelAndView返回给DispatcherServlet。</p>
+<p>8、  DispatcherServlet将ModelAndView传给ViewReslover视图解析器。</p>
+<p>9、  ViewReslover解析后返回具体View。</p>
+<p>10、DispatcherServlet根据View进行渲染视图（即将模型数据填充至视图中）。</p>
+<p>11、 DispatcherServlet响应用户。</p>
+<h2 id="组件说明："><a href="#组件说明：" class="headerlink" title="组件说明："></a>组件说明：</h2><p>以下组件通常使用框架提供实现：</p>
+<p>DispatcherServlet：作为前端控制器，整个流程控制的中心，控制其它组件执行，统一调度，降低组件之间的耦合性，提高每个组件的扩展性。</p>
+<p>HandlerMapping：通过扩展处理器映射器实现不同的映射方式，例如：配置文件方式，实现接口方式，注解方式等。 </p>
+<p>HandlAdapter：通过扩展处理器适配器，支持更多类型的处理器。</p>
+<p>ViewResolver：通过扩展视图解析器，支持更多类型的视图解析，例如：jsp、freemarker、pdf、excel等。</p>
+<h3 id="组件："><a href="#组件：" class="headerlink" title="组件："></a>组件：</h3><h4 id="1、前端控制器DispatcherServlet"><a href="#1、前端控制器DispatcherServlet" class="headerlink" title="1、前端控制器DispatcherServlet"></a>1、前端控制器DispatcherServlet</h4><p>作用：接收请求，响应结果，相当于转发器，中央处理器。有了dispatcherServlet减少了其它组件之间的耦合度。</p>
+<p>用户请求到达前端控制器，它就相当于mvc模式中的c，dispatcherServlet是整个流程控制的中心，由它调用其它组件处理用户的请求，dispatcherServlet的存在降低了组件之间的耦合性。</p>
+<h4 id="2、处理器映射器HandlerMapping"><a href="#2、处理器映射器HandlerMapping" class="headerlink" title="2、处理器映射器HandlerMapping"></a>2、处理器映射器HandlerMapping</h4><p>作用：根据请求的url查找Handler</p>
+<p>HandlerMapping负责根据用户请求找到Handler即处理器，springmvc提供了不同的映射器实现不同的映射方式，例如：配置文件方式，实现接口方式，注解方式等。</p>
+<h4 id="3、处理器适配器HandlerAdapter"><a href="#3、处理器适配器HandlerAdapter" class="headerlink" title="3、处理器适配器HandlerAdapter"></a>3、处理器适配器HandlerAdapter</h4><p>作用：按照特定规则（HandlerAdapter要求的规则）去执行Handler</p>
+<p>通过HandlerAdapter对处理器进行执行，这是适配器模式的应用，通过扩展适配器可以对更多类型的处理器进行执行。</p>
+<h4 id="4、处理器Handler"><a href="#4、处理器Handler" class="headerlink" title="4、处理器Handler"></a>4、处理器Handler</h4><p><strong>注意：编写Handler时按照HandlerAdapter的要求去做，这样适配器才可以去正确执行Handler</strong></p>
+<p>Handler 是继DispatcherServlet前端控制器的后端控制器，在DispatcherServlet的控制下Handler对具体的用户请求进行处理。</p>
+<p>由于Handler涉及到具体的用户业务请求，所以一般情况需要工程师根据业务需求开发Handler。</p>
+<h4 id="5、视图解析器View-resolver"><a href="#5、视图解析器View-resolver" class="headerlink" title="5、视图解析器View resolver"></a>5、视图解析器View resolver</h4><p>作用：进行视图解析，根据逻辑视图名解析成真正的视图（view）</p>
+<p>View Resolver负责将处理结果生成View视图，View Resolver首先根据逻辑视图名解析成物理视图名即具体的页面地址，再生成View视图对象，最后对View进行渲染将处理结果通过页面展示给用户。 springmvc框架提供了很多的View视图类型，包括：jstlView、freemarkerView、pdfView等。</p>
+<p>一般情况下需要通过页面标签或页面模版技术将模型数据通过页面展示给用户，需要由工程师根据业务需求开发具体的页面。</p>
+<h4 id="6、视图View"><a href="#6、视图View" class="headerlink" title="6、视图View"></a>6、视图View</h4><p>View是一个接口，实现类支持不同的View类型（jsp、freemarker、pdf…）</p>
+<h3 id="核心架构的具体流程"><a href="#核心架构的具体流程" class="headerlink" title="核心架构的具体流程"></a>核心架构的具体流程</h3><p><strong>步骤如下：</strong></p>
+<p>1、首先用户发送请求——&gt;DispatcherServlet，前端控制器收到请求后自己不进行处理，而是委托给其他的解析器进行处理，作为统一访问点，进行全局的流程控制；</p>
+<p>2、DispatcherServlet——&gt;HandlerMapping， HandlerMapping 将会把请求映射为HandlerExecutionChain 对象（包含一个Handler 处理器（页面控制器）对象、多个HandlerInterceptor 拦截器）对象，通过这种策略模式，很容易添加新的映射策略；</p>
+<p>3、DispatcherServlet——&gt;HandlerAdapter，HandlerAdapter 将会把处理器包装为适配器，从而支持多种类型的处理器，即适配器设计模式的应用，从而很容易支持很多类型的处理器；</p>
+<p>4、HandlerAdapter——&gt;处理器功能处理方法的调用，HandlerAdapter 将会根据适配的结果调用真正的处理器的功能处理方法，完成功能处理；并返回一个ModelAndView 对象（包含模型数据、逻辑视图名）；</p>
+<p>5、ModelAndView的逻辑视图名——&gt; ViewResolver， ViewResolver 将把逻辑视图名解析为具体的View，通过这种策略模式，很容易更换其他视图技术；</p>
+<p>6、View——&gt;渲染，View会根据传进来的Model模型数据进行渲染，此处的Model实际是一个Map数据结构，因此很容易支持其他视图技术；</p>
+<p>7、返回控制权给DispatcherServlet，由DispatcherServlet返回响应给用户，到此一个流程结束。</p>
+<p>下边两个组件通常情况下需要开发：</p>
+<p>Handler：处理器，即后端控制器用controller表示。</p>
+<p>View：视图，即展示给用户的界面，视图中通常需要标签语言展示模型数据。</p>
+<p><strong>在将SpringMVC之前我们先来看一下什么是MVC模式</strong></p>
+<p>MVC：MVC是一种设计模式</p>
+<p>MVC的原理图：</p>
+<p><img src="https://images2015.cnblogs.com/blog/249993/201702/249993-20170207135959401-404841652.png" alt="img"></p>
+<p><strong>分析：</strong></p>
+<p>M-Model 模型（完成业务逻辑：有javaBean构成，service+dao+entity）</p>
+<p>V-View 视图（做界面的展示  jsp，html……）</p>
+<p>C-Controller 控制器（接收请求—&gt;调用模型—&gt;根据结果派发页面）</p>
+<h3 id="SpringMVC原理图"><a href="#SpringMVC原理图" class="headerlink" title="SpringMVC原理图"></a>SpringMVC原理图</h3><p><img src="https://images2015.cnblogs.com/blog/249993/201702/249993-20170207140151791-1932120070.png" alt="img"></p>
+<p><strong>看到这个图大家可能会有很多的疑惑，现在我们来看一下这个图的步骤：（可以对比MVC的原理图进行理解）</strong></p>
+<p>第一步:用户发起请求到前端控制器（DispatcherServlet）</p>
+<p>第二步：前端控制器请求处理器映射器（HandlerMappering）去查找处理器（Handle）：通过xml配置或者注解进行查找</p>
+<p>第三步：找到以后处理器映射器（HandlerMappering）像前端控制器返回执行链（HandlerExecutionChain）</p>
+<p>第四步：前端控制器（DispatcherServlet）调用处理器适配器（HandlerAdapter）去执行处理器（Handler）</p>
+<p>第五步：处理器适配器去执行Handler</p>
+<p>第六步：Handler执行完给处理器适配器返回ModelAndView</p>
+<p>第七步：处理器适配器向前端控制器返回ModelAndView</p>
+<p>第八步：前端控制器请求视图解析器（ViewResolver）去进行视图解析</p>
+<p>第九步：视图解析器像前端控制器返回View</p>
+<p>第十步：前端控制器对视图进行渲染</p>
+<p>第十一步：前端控制器向用户响应结果</p>
+<p><strong>看到这些步骤我相信大家很感觉非常的乱，这是正常的，但是这里主要是要大家理解springMVC中的几个组件：</strong></p>
+<p>前端控制器（DispatcherServlet）：接收请求，响应结果，相当于电脑的CPU。</p>
+<p>处理器映射器（HandlerMapping）：根据URL去查找处理器</p>
+<p>处理器（Handler）：（需要程序员去写代码处理逻辑的）</p>
+<p>处理器适配器（HandlerAdapter）：会把处理器包装成适配器，这样就可以支持多种类型的处理器，类比笔记本的适配器（适配器模式的应用）</p>
+<p>视图解析器（ViewResovler）：进行视图解析，多返回的字符串，进行处理，可以解析成对应的页面</p>
 
           
             <br>
@@ -554,7 +610,7 @@
           
         
           
-            <p>本文永久链接是：<a href=http://yoursite.com/2020/03/17/hello-world/>http://yoursite.com/2020/03/17/hello-world/</a></p>
+            <p>本文永久链接是：<a href=http://yoursite.com/2020/03/19/SpringMVC%E6%B5%81%E7%A8%8B/>http://yoursite.com/2020/03/19/SpringMVC%E6%B5%81%E7%A8%8B/</a></p>
           
         
       </blockquote>
@@ -596,10 +652,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-03-18T17:49:06+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-03-19T17:26:27+08:00">
   <a class='notlink'>
     <i class="fas fa-save" aria-hidden="true"></i>
-    <p>更新于：2020年3月18日</p>
+    <p>更新于：2020年3月19日</p>
   </a>
 </div>
 
@@ -608,7 +664,7 @@
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/william.github.io/tags/Hello-World/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i><p>Hello World</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/william.github.io/tags/Spring/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i><p>Spring</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/william.github.io/tags/SpringMVC/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i><p>SpringMVC</p></a></div>
 
 
         
@@ -626,7 +682,8 @@
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/03/17/hello-world/&title=Hello World - William's Blog&summary=Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub."
+          href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/03/19/SpringMVC%E6%B5%81%E7%A8%8B/&title=SpringMVC流程 - William's Blog&summary=SpringMVC是什么： 
+　　SpringMVC是一个MVC的开源框架，SpringMVC=Struts2+Spring，SpringMVC就相当于是Struts2加上Spring的整合，但是这里有一个疑惑就是，SpringMVC和Spring是什么样的关系呢？"
           
           >
           
@@ -638,7 +695,8 @@
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://yoursite.com/2020/03/17/hello-world/&title=Hello World - William's Blog&summary=Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub."
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://yoursite.com/2020/03/19/SpringMVC%E6%B5%81%E7%A8%8B/&title=SpringMVC流程 - William's Blog&summary=SpringMVC是什么： 
+　　SpringMVC是一个MVC的开源框架，SpringMVC=Struts2+Spring，SpringMVC就相当于是Struts2加上Spring的整合，但是这里有一个疑惑就是，SpringMVC和Spring是什么样的关系呢？"
           
           >
           
@@ -650,7 +708,8 @@
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
           
-          href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/03/17/hello-world/&title=Hello World - William's Blog&summary=Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub."
+          href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/03/19/SpringMVC%E6%B5%81%E7%A8%8B/&title=SpringMVC流程 - William's Blog&summary=SpringMVC是什么： 
+　　SpringMVC是一个MVC的开源框架，SpringMVC=Struts2+Spring，SpringMVC就相当于是Struts2加上Spring的整合，但是这里有一个疑惑就是，SpringMVC和Spring是什么样的关系呢？"
           
           >
           
@@ -674,14 +733,19 @@
         
           <div class="prev-next">
             
-              <a class='prev' href='/william.github.io/2020/03/17/%E5%B8%B8%E8%A7%81%E7%9A%84%E5%87%A0%E7%A7%8D%E7%BC%93%E5%AD%98%E7%AE%97%E6%B3%95/'>
-                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>常见的几种缓存算法</p>
+              <a class='prev' href='/william.github.io/2020/03/19/Spring%E4%B8%8ESpringMVC%E7%9A%84%E5%8C%BA%E5%88%AB/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Spring与SpringMVC的区别</p>
+                <p class='content'>1.Spring的介绍​        Spring是一个一站式的框架，提供了表现层（SpringMVC）到业务层（Spring）再到数据层（SpringData)的全套解决方案；Spring的...</p>
+              </a>
+            
+            
+              <a class='next' href='/william.github.io/2020/03/17/%E5%B8%B8%E8%A7%81%E7%9A%84%E5%87%A0%E7%A7%8D%E7%BC%93%E5%AD%98%E7%AE%97%E6%B3%95/'>
+                <p class='title'>常见的几种缓存算法<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
                 <p class='content'>缓存 : 凡是位于速度相差较大的两种硬件之间，用于协调两者数据传输速度差异的结构，均可称之为缓存（Cache）。
 
 1.缓存相关概念​        
 ​        因为内存相对于硬盘读写速...</p>
               </a>
-            
             
           </div>
         
@@ -723,7 +787,7 @@
 
   <script>
     window.subData = {
-      title: 'Hello World',
+      title: 'SpringMVC流程',
       tools: true
     }
   </script>
@@ -749,7 +813,7 @@
 
 
     <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringMVC流程"><span class="toc-text">SpringMVC流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#组件说明："><span class="toc-text">组件说明：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#组件："><span class="toc-text">组件：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、前端控制器DispatcherServlet"><span class="toc-text">1、前端控制器DispatcherServlet</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、处理器映射器HandlerMapping"><span class="toc-text">2、处理器映射器HandlerMapping</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3、处理器适配器HandlerAdapter"><span class="toc-text">3、处理器适配器HandlerAdapter</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4、处理器Handler"><span class="toc-text">4、处理器Handler</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5、视图解析器View-resolver"><span class="toc-text">5、视图解析器View resolver</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6、视图View"><span class="toc-text">6、视图View</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#核心架构的具体流程"><span class="toc-text">核心架构的具体流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SpringMVC原理图"><span class="toc-text">SpringMVC原理图</span></a></li></ol></li></ol>
     </div>
   </section>
 

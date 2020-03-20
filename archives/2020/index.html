@@ -1,13 +1,1363 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="William Chu"><meta name="description" content="�����ͼ�¼"><link rel="alternative" href="/atom.xml" title="William's Blog" type="application/atom+xml"><link rel="icon" href="/favicon.png"><title>William's Blog</title>
-<link rel="stylesheet" href="/william.github.io/css/main.css">
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#2.1.6'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+      <meta name="robots" content="noindex,follow">
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-<link rel="stylesheet" href="/william.github.io/js/fancybox/jquery.fancybox.min.css">
-<!--[if lt IE 9]><script>(function(a,b){a="abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video".split(" ");for(b=a.length-1;b>=0;b--)document.createElement(a[b])})()</script><![endif]-->
-<script src="/william.github.io/js/jquery-3.1.1.min.js"></script>
+  <!-- 页面元数据 -->
+  
+    <title>Archive: 2020 - William&#39;s Blog</title>
+  
+  
 
-<script src="/william.github.io/js/fancybox/jquery.fancybox.min.js"></script>
-<meta name="generator" content="Hexo 4.2.0"></head><body style="opacity:0"><header class="head"><h1 class="head-title u-fl"><a href="/william.github.io/">William's Blog</a></h1><nav class="head-nav u-fr"><ul class="head-nav__list"><li class="head-nav__item"><a class="head-nav__link" href="/william.github.io/tags">标签</a></li><li class="head-nav__item"><a class="head-nav__link" href="/william.github.io/archives">目录</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__head archive"><a href="/william.github.io/2020/03/17/%E5%B8%B8%E8%A7%81%E7%9A%84%E5%87%A0%E7%A7%8D%E7%BC%93%E5%AD%98%E7%AE%97%E6%B3%95/"><time class="post__time" datetime="2020-03-17T07:26:11.606Z">2020 - 03 - 17 15:26:11</time></a><h1 class="post__title archive"><a href="/william.github.io/2020/03/17/%E5%B8%B8%E8%A7%81%E7%9A%84%E5%87%A0%E7%A7%8D%E7%BC%93%E5%AD%98%E7%AE%97%E6%B3%95/">常见的几种缓存算法</a></h1></header><footer class="post__foot u-cf"><ul class="post__tag u-fl"><li class="post__tag__item"><a class="post__tag__link" href="/william.github.io/tags/%E7%BC%93%E5%AD%98%E7%AE%97%E6%B3%95/">缓存算法</a></li><li class="post__tag__item"><a class="post__tag__link" href="/william.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a></li></ul></footer></article><article class="post"><header class="post__head archive"><a href="/william.github.io/2020/03/17/hello-world/"><time class="post__time" datetime="2020-03-17T04:23:07.684Z">2020 - 03 - 17 12:23:07</time></a><h1 class="post__title archive"><a href="/william.github.io/2020/03/17/hello-world/">Hello World</a></h1></header><footer class="post__foot u-cf"><ul class="post__tag u-fl"><li class="post__tag__item"><a class="post__tag__link" href="/william.github.io/tags/Hello-World/">Hello World</a></li></ul></footer></article></main><footer class="foot"><div class="foot-copy">&copy; 2016 - 2020 William Chu</div></footer>
-<script src="/william.github.io/js/scroller.js"></script>
+  <!-- feed -->
+  
 
-<script src="/william.github.io/js/main.js"></script>
-</body></html>
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css">
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/william.github.io/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div class="cover-wrapper">
+    
+      <cover class='cover  half'>
+        <div class='cover-body'>
+  <div class='a'>
+    
+    
+      <p class="title">William's Blog</p>
+    
+    
+      <p class="subtitle">记录随笔</p>
+    
+  </div>
+  <div class='b'>
+    
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <input type="text" class="input u-search-input" placeholder="" />
+          <i class="icon fas fa-search fa-fw"></i>
+        </form>
+      </div>
+    
+    <div class='menu navigation'>
+      <ul class='h-list'>
+        
+          
+            <li>
+              <a class="nav home"
+                href="/william.github.io/"
+                
+                
+                id="williamgithubio">
+                <i class='fas fa-rss fa-fw'></i>&nbsp;博客
+              </a>
+            </li>
+          
+            <li>
+              <a class="nav home"
+                href="/william.github.io/categories/"
+                
+                
+                id="williamgithubiocategories">
+                <i class='fas fa-folder-open fa-fw'></i>&nbsp;分类
+              </a>
+            </li>
+          
+            <li>
+              <a class="nav home"
+                href="/william.github.io/tags/"
+                
+                
+                id="williamgithubiotags">
+                <i class='fas fa-tags fa-fw'></i>&nbsp;标签
+              </a>
+            </li>
+          
+            <li>
+              <a class="nav home"
+                href="/william.github.io/archives/"
+                
+                
+                id="williamgithubioarchives">
+                <i class='fas fa-archive fa-fw'></i>&nbsp;归档
+              </a>
+            </li>
+          
+            <li>
+              <a class="nav home"
+                href="/william.github.io/friends/"
+                
+                
+                id="williamgithubiofriends">
+                <i class='fas fa-link fa-fw'></i>&nbsp;友链
+              </a>
+            </li>
+          
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+      </cover>
+    
+    <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow floatable">
+
+  <div class='wrapper'>
+    <div class='nav-sub container--flex'>
+      <a class="logo flat-box"></a>
+      <ul class='switcher h-list'>
+        <li><a class="s-comment flat-btn fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc flat-btn fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main container container--flex">
+      
+        
+        <a class="logo flat-box" target="_self" href='/william.github.io/'>
+          
+            <img class='logo' src='https://cdn.jsdelivr.net/gh/WilliamChuZ/blog_cdn@V1.2/img/logo/timg.jpg'/>
+          
+          
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='h-list'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/william.github.io/
+                  
+                  
+                  
+                    id="williamgithubio"
+                  >
+                  
+                    <i class='fas fa-rss fa-fw'></i>
+                  
+                  博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/william.github.io/categories/
+                  
+                  
+                  
+                    id="williamgithubiocategories"
+                  >
+                  
+                    <i class='fas fa-folder-open fa-fw'></i>
+                  
+                  分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/william.github.io/tags/
+                  
+                  
+                  
+                    id="williamgithubiotags"
+                  >
+                  
+                    <i class='fas fa-tags fa-fw'></i>
+                  
+                  标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/william.github.io/archives/
+                  
+                  
+                  
+                    id="williamgithubioarchives"
+                  >
+                  
+                    <i class='fas fa-archive fa-fw'></i>
+                  
+                  归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/william.github.io/friends/
+                  
+                  
+                  
+                    id="williamgithubiofriends"
+                  >
+                  
+                    <i class='fas fa-link fa-fw'></i>
+                  
+                  友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/william.github.io/about/
+                  
+                  
+                  
+                    id="williamgithubioabout"
+                  >
+                  
+                    <i class='fas fa-info-circle fa-fw'></i>
+                  
+                  关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      
+        <div class="m_search">
+          <form name="searchform" class="form u-search-form">
+            <i class="icon fas fa-search fa-fw"></i>
+            <input type="text" class="input u-search-input" placeholder="搜索" />
+          </form>
+        </div>
+      
+
+			<ul class='switcher h-list'>
+				
+					<li><a class="s-search flat-btn fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li><a class="s-menu flat-btn fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+	</div>
+</header>
+<ul class="menu-phone navigation white-box">
+  
+  
+    <li>
+      <a class="flat-box" href=/william.github.io/
+        
+        
+        
+          id="williamgithubio"
+        >
+        
+          <i class='fas fa-rss fa-fw'></i>
+        
+        博客
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/william.github.io/categories/
+        
+        
+        
+          id="williamgithubiocategories"
+        >
+        
+          <i class='fas fa-folder-open fa-fw'></i>
+        
+        分类
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/william.github.io/tags/
+        
+        
+        
+          id="williamgithubiotags"
+        >
+        
+          <i class='fas fa-tags fa-fw'></i>
+        
+        标签
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/william.github.io/archives/
+        
+        
+        
+          id="williamgithubioarchives"
+        >
+        
+          <i class='fas fa-archive fa-fw'></i>
+        
+        归档
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/william.github.io/friends/
+        
+        
+        
+          id="williamgithubiofriends"
+        >
+        
+          <i class='fas fa-link fa-fw'></i>
+        
+        友链
+      </a>
+    </li>
+  
+    <li>
+      <a class="flat-box" href=/william.github.io/about/
+        
+        
+        
+          id="williamgithubioabout"
+        >
+        
+          <i class='fas fa-info-circle fa-fw'></i>
+        
+        关于
+      </a>
+    </li>
+  
+</ul>
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+	
+		
+  <section class="post-list ">
+    
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+    
+    
+      
+        
+          <div class='post-wrapper'>
+            <article class="post white-box shadow reveal ">
+  
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  <h2 class="title">
+    <a href="/william.github.io/2020/03/19/SpringMVC%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3/">
+      SpringMVC常用注解
+    </a>
+  </h2>
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+<div class='new-meta-item author'>
+  <a href="https://github.com/WilliamChuZ" target="_blank" rel="nofollow noopener">
+    <img src="https://cdn.jsdelivr.net/gh/WilliamChuZ/blog_cdn@V1.2/img/logo/timg.jpg">
+    <p>William</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/william.github.io/categories/Spring/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>Spring</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-edit" aria-hidden="true"></i>
+    <p>发布于：2020年3月19日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
+      <p>　　Spring提供了一系列注解，有很多作用，此处对spring核心包注解和部分常用注解做归纳和总结。</p>
+      
+        
+          <div class="button readmore">
+            <a href="/william.github.io/2020/03/19/SpringMVC%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3/">
+              阅读全文 <i class="fas fa-chevron-right"></i>
+            </a>
+          </div>
+        
+      
+    </div>
+  </section>
+</article>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <article class="post white-box shadow reveal ">
+  
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  <h2 class="title">
+    <a href="/william.github.io/2020/03/19/Spring%E4%B8%8ESpringMVC%E7%9A%84%E5%8C%BA%E5%88%AB/">
+      Spring与SpringMVC的区别
+    </a>
+  </h2>
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+<div class='new-meta-item author'>
+  <a href="https://github.com/WilliamChuZ" target="_blank" rel="nofollow noopener">
+    <img src="https://cdn.jsdelivr.net/gh/WilliamChuZ/blog_cdn@V1.2/img/logo/timg.jpg">
+    <p>William</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/william.github.io/categories/Spring/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>Spring</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-edit" aria-hidden="true"></i>
+    <p>发布于：2020年3月19日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
+      <h2 id="1-Spring的介绍"><a href="#1-Spring的介绍" class="headerlink" title="1.Spring的介绍"></a>1.Spring的介绍</h2><p>​        Spring是一个一站式的框架，提供了表现层（SpringMVC）到业务层（Spring）再到数据层（SpringData)的全套解决方案；Spring的两大核心是IOC与AOP，IOC（控制反转，Inversion of Control）与AOP（面向切面编程，Asepct-Orentid-Programming）为程序解耦和代码的简洁提供了支持。
+      
+        
+          <div class="button readmore">
+            <a href="/william.github.io/2020/03/19/Spring%E4%B8%8ESpringMVC%E7%9A%84%E5%8C%BA%E5%88%AB/">
+              阅读全文 <i class="fas fa-chevron-right"></i>
+            </a>
+          </div>
+        
+      
+    </div>
+  </section>
+</article>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <article class="post white-box shadow reveal ">
+  
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  <h2 class="title">
+    <a href="/william.github.io/2020/03/19/SpringMVC%E6%B5%81%E7%A8%8B/">
+      SpringMVC流程
+    </a>
+  </h2>
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+<div class='new-meta-item author'>
+  <a href="https://github.com/WilliamChuZ" target="_blank" rel="nofollow noopener">
+    <img src="https://cdn.jsdelivr.net/gh/WilliamChuZ/blog_cdn@V1.2/img/logo/timg.jpg">
+    <p>William</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/william.github.io/categories/Spring/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>Spring</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-edit" aria-hidden="true"></i>
+    <p>发布于：2020年3月19日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
+      <p><strong>SpringMVC是什么：</strong> </p>
+<p>　　SpringMVC是一个MVC的开源框架，SpringMVC=Struts2+Spring，SpringMVC就相当于是Struts2加上Spring的整合，但是这里有一个疑惑就是，SpringMVC和Spring是什么样的关系呢？
+      
+        
+          <div class="button readmore">
+            <a href="/william.github.io/2020/03/19/SpringMVC%E6%B5%81%E7%A8%8B/">
+              阅读全文 <i class="fas fa-chevron-right"></i>
+            </a>
+          </div>
+        
+      
+    </div>
+  </section>
+</article>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <article class="post white-box shadow reveal ">
+  
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  <h2 class="title">
+    <a href="/william.github.io/2020/03/17/%E5%B8%B8%E8%A7%81%E7%9A%84%E5%87%A0%E7%A7%8D%E7%BC%93%E5%AD%98%E7%AE%97%E6%B3%95/">
+      常见的几种缓存算法
+    </a>
+  </h2>
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+<div class='new-meta-item author'>
+  <a href="https://github.com/WilliamChuZ" target="_blank" rel="nofollow noopener">
+    <img src="https://cdn.jsdelivr.net/gh/WilliamChuZ/blog_cdn@V1.2/img/logo/timg.jpg">
+    <p>William</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/william.github.io/categories/cache/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>cache</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-edit" aria-hidden="true"></i>
+    <p>发布于：2020年3月17日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
+      <p>缓存 : 凡是位于速度相差较大的两种硬件之间，用于协调两者数据传输速度差异的结构，均可称之为缓存（Cache）。</p>
+      
+        
+          <div class="button readmore">
+            <a href="/william.github.io/2020/03/17/%E5%B8%B8%E8%A7%81%E7%9A%84%E5%87%A0%E7%A7%8D%E7%BC%93%E5%AD%98%E7%AE%97%E6%B3%95/">
+              阅读全文 <i class="fas fa-chevron-right"></i>
+            </a>
+          </div>
+        
+      
+    </div>
+  </section>
+</article>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <article class="post white-box shadow reveal ">
+  
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  <h2 class="title">
+    <a href="/william.github.io/2020/03/17/hello-world/">
+      Hello World
+    </a>
+  </h2>
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+<div class='new-meta-item author'>
+  <a href="https://github.com/WilliamChuZ" target="_blank" rel="nofollow noopener">
+    <img src="https://cdn.jsdelivr.net/gh/WilliamChuZ/blog_cdn@V1.2/img/logo/timg.jpg">
+    <p>William</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/william.github.io/categories/Hexo/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>Hexo</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-edit" aria-hidden="true"></i>
+    <p>发布于：2020年3月17日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
+      <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+      
+        
+          <div class="button readmore">
+            <a href="/william.github.io/2020/03/17/hello-world/">
+              阅读全文 <i class="fas fa-chevron-right"></i>
+            </a>
+          </div>
+        
+      
+    </div>
+  </section>
+</article>
+
+          </div>
+        
+      
+    
+  </section>
+  
+    
+    <!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
+    
+    
+
+  
+
+
+	
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+<section class="widget blogger floatable desktop">
+  <div class='content'>
+    
+      <div class='avatar'>
+        <img class='avatar' src='https://cdn.jsdelivr.net/gh/WilliamChuZ/blog_cdn@V1.2/img/logo/timg.jpg'/>
+      </div>
+    
+    
+      <div class='text'>
+        
+        
+        
+          <p><span id="jinrishici-sentence">William's Blog</span></p>
+          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+        
+      </div>
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="mailto:me@1065507133@qq.com"
+              class="social fas fa-envelope flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="https://github.com/WilliamChuZ"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="https://music.163.com/#/user/home?id=251740674"
+              class="social fas fa-headphones-alt flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+  
+
+  <section class="widget category floatable desktop">
+    
+  <header>
+    
+      <a href='categories/'><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
+    
+  </header>
+
+
+    <div class='content'>
+      <ul class="entry navigation">
+        
+          <li><a class="flat-box"
+            title="/william.github.io/categories/Hexo/" href="/william.github.io/categories/Hexo/"
+            id="williamgithubiocategoriesHexo"
+            ><div class='name'>Hexo</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box"
+            title="/william.github.io/categories/Spring/" href="/william.github.io/categories/Spring/"
+            id="williamgithubiocategoriesSpring"
+            ><div class='name'>Spring</div><div class='badge'>(3)</div></a></li>
+        
+          <li><a class="flat-box"
+            title="/william.github.io/categories/cache/" href="/william.github.io/categories/cache/"
+            id="williamgithubiocategoriescache"
+            ><div class='name'>cache</div><div class='badge'>(1)</div></a></li>
+        
+      </ul>
+    </div>
+  </section>
+
+
+  
+
+  
+    
+    
+  
+
+  <section class="widget tagcloud floatable desktop">
+    
+  <header>
+    
+      <a href='tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
+    
+  </header>
+
+
+    <div class='content'>
+      <a href="/william.github.io/tags/Hello-World/" style="font-size: 14px; color: #999">Hello World</a> <a href="/william.github.io/tags/Spring/" style="font-size: 24px; color: #555">Spring</a> <a href="/william.github.io/tags/SpringMVC/" style="font-size: 24px; color: #555">SpringMVC</a> <a href="/william.github.io/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px; color: #999">算法</a> <a href="/william.github.io/tags/%E7%BC%93%E5%AD%98%E7%AE%97%E6%B3%95/" style="font-size: 14px; color: #999">缓存算法</a>
+    </div>
+  </section>
+
+
+  
+
+  
+
+
+</aside>
+
+
+  
+  <footer class="clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='340px'
+      server='netease'
+      type='playlist'
+      id='4921555213'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="mailto:me@1065507133@qq.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/WilliamChuZ"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/user/home?id=251740674"
+                class="social fas fa-headphones-alt flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>Blog content follows the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
+</div>
+      
+    
+      
+        Use
+        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
+        as theme
+        
+          , 
+          total visits
+          <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
+          times
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://github.com/WilliamChuZ" target="_blank" rel="noopener">Copyright © 2017-2020 William</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+
+
+	<!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
+	
+
+	
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/william.github.io/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/WilliamChuZ/blog_cdn@V1.2/img/banner/A013C4E7C.jpeg", "https://cdn.jsdelivr.net/gh/WilliamChuZ/blog_cdn@V1.2/img/banner/A02911841.jpg", "https://cdn.jsdelivr.net/gh/WilliamChuZ/blog_cdn@V1.2/img/banner/A03E5DF6B.jpeg", "https://cdn.jsdelivr.net/gh/WilliamChuZ/blog_cdn@V1.2/img/banner/A0465259E.jpeg", "https://cdn.jsdelivr.net/gh/WilliamChuZ/blog_cdn@V1.2/img/banner/A055586518.jpg", "https://cdn.jsdelivr.net/gh/WilliamChuZ/blog_cdn@V1.2/img/banner/A065586474.jpg", "https://cdn.jsdelivr.net/gh/WilliamChuZ/blog_cdn@V1.2/img/banner/A0745F17A.jpeg", "https://cdn.jsdelivr.net/gh/WilliamChuZ/blog_cdn@V1.2/img/banner/A083FF21B.jpeg", "https://cdn.jsdelivr.net/gh/WilliamChuZ/blog_cdn@V1.2/img/banner/A091B63B0.jpeg", "https://cdn.jsdelivr.net/gh/WilliamChuZ/blog_cdn@V1.2/img/banner/A10911842.jpg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('') {
+          $('').backstretch(
+            imgs,
+          {
+            duration: "10000",
+            fade: "3000"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "10000",
+            fade: "3000"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js" async></script>
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js" async></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+<script src="/william.github.io/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.1/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copyed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-clipboard-check');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPYED';
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-exclamation-triangle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+
+  <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>

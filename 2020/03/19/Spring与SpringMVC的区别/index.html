@@ -16,12 +16,12 @@
 
   <!-- 页面元数据 -->
   
-    <title>Hello World - William&#39;s Blog</title>
+    <title>Spring与SpringMVC的区别 - William&#39;s Blog</title>
   
-    <meta name="keywords" content="Hello World">
+    <meta name="keywords" content="Spring,SpringMVC">
   
   
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in trouble...">
+    <meta name="description" content="1.Spring的介绍​        Spring是一个一站式的框架，提供了表现层（SpringMVC）到业务层（Spring）再到数据层（SpringData)的全套解决方案；Spring的两大核心是IOC与AOP，IOC（控制反转，Inversion of Control）与AOP（面向切面编程，Asepc...">
   
 
   <!-- feed -->
@@ -435,8 +435,8 @@
         
   
     <h1 class="title">
-      <a href="/william.github.io/2020/03/17/hello-world/">
-        Hello World
+      <a href="/william.github.io/2020/03/19/Spring%E4%B8%8ESpringMVC%E7%9A%84%E5%8C%BA%E5%88%AB/">
+        Spring与SpringMVC的区别
       </a>
     </h1>
   
@@ -462,9 +462,9 @@
             
   
   <div class='new-meta-item category'>
-    <a href='/william.github.io/categories/Hexo/' rel="nofollow">
+    <a href='/william.github.io/categories/Spring/' rel="nofollow">
       <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>Hexo</p>
+      <p>Spring</p>
     </a>
   </div>
 
@@ -475,7 +475,7 @@
             <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-edit" aria-hidden="true"></i>
-    <p>发布于：2020年3月17日</p>
+    <p>发布于：2020年3月19日</p>
   </a>
 </div>
 
@@ -520,21 +520,33 @@
       <section class="article typo">
         <div class="article-entry" itemprop="articleBody">
           
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<a id="more"></a>
-
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+          <h2 id="1-Spring的介绍"><a href="#1-Spring的介绍" class="headerlink" title="1.Spring的介绍"></a>1.Spring的介绍</h2><p>​        Spring是一个一站式的框架，提供了表现层（SpringMVC）到业务层（Spring）再到数据层（SpringData)的全套解决方案；Spring的两大核心是IOC与AOP，IOC（控制反转，Inversion of Control）与AOP（面向切面编程，Asepct-Orentid-Programming）为程序解耦和代码的简洁提供了支持。<a id="more"></a><br>目的：简化Java开发</p>
+<p>功能：使用基本的JavaBean代替EJB，并提供了更多的企业应用功能</p>
+<p>范围：所有java应用</p>
+<p>​        Spring是个轻量级的控制反转和面向切面的容器框架，IOC与AOP可以单独用于任何应用，包括与Struts等MVC框架与Hibernate等ORM框架的集成。</p>
+<h2 id="2-SpringMVC的介绍"><a href="#2-SpringMVC的介绍" class="headerlink" title="2.SpringMVC的介绍"></a>2.SpringMVC的介绍</h2><p>​        SpringMVC给Spring的表现层提供支持</p>
+<p>SpringMVC的流程：</p>
+<p>用户发送请求至前端控制器DispatcherServlet；</p>
+<p>DispatcherServlet收到请求调用HandlerMapping处理器映射器；</p>
+<p>处理器映射器根据请求url找到具体的处理器，生成处理器对象及处理器拦截器(如果有则生成)一并返回给DispatcherServlet；</p>
+<p>DispatcherServlet通过HandlerAdapter处理器适配器调用处理器，执行处理器(Controller，也叫后端控制器)；</p>
+<p>Controller执行完成返回ModelAndView，并返回给HandlerAdapter，HandlerAdapter将结果返回给DispatcherServlet；</p>
+<p>DispatcherServlet将ModelAndView传给ViewReslover视图解析器，ViewReslover解析后返回具体View给DispatcherServlet；</p>
+<p>DispatcherServlet对View进行渲染视图（即将模型数据填充至视图中）后返回给给客户</p>
+<p>SpringMVC就是一个MVC模式的web开发框架，都属于Spring，SpringMVC需要有Spring的jar包作为支撑才能跑起来</p>
+<h2 id="3-AOP与IOC"><a href="#3-AOP与IOC" class="headerlink" title="3.AOP与IOC"></a>3.AOP与IOC</h2><p>​        AOP与IOC给Spring的业务层提供支持，使程序松耦合，代码简洁<br>AOP原理：即面向切面编程，就是提取公共部分，集中解决一些公共问题<br>IOC原理：控制反转，在传统过程中，当某一个对象依赖于另一个对象时，会由该对象去创建另外一个对象。但是有了IOC之后，将创建过程交给IOC，由spring创建Bean，从而只需给该对象注入即可。</p>
+<h2 id="4-IOC与DI的区别与联系"><a href="#4-IOC与DI的区别与联系" class="headerlink" title="4.IOC与DI的区别与联系"></a>4.IOC与DI的区别与联系</h2><p>（1）IOC：控制反转（Inversion of Control）</p>
+<p>​        传统资源查找方式：要求组件向容器发起请求，查找资源作为回应，容器适时返回资源。<br>​        IOC查找方式：容器主动将资源提供给它所管理的组件，组件只需要选择一个合适的方式来接收资源。<br>​        创建对象实例的控制权由代码控制转移到IOC容器控制（new关键字转移到容器），即在XML文件中控制，控制权转移即所谓的反转，侧重于原理。<br>（2）DI：依赖注入（Dependecy Injection）</p>
+<p>​        IOC另一种表达方式：组件以一些预先定义好的方式（如setter\getter)接收来自容器的资源注入。相对于IOC，DI更直接<br>创建对象实例时，为这个对象注入属性值和其他对象实例，侧重于实现。<br>（3）属性注入</p>
+<p>set方法注入bean的属性值或依赖的对象</p>
+<p>name属性：制定bean属性set方法后的属性名</p>
+<p>value属性：可以使（value)子节点指定属性值</p>
+<p>（4）构造器注入</p>
+<p>通过构造器注入bean属性值或依赖对象，它保证bean实例在实例化后可以使用 。<br>（5）区别</p>
+<p>他们是spring核心思想的不同方面的描述</p>
+<p>依赖注入和控制反转是对同一件事情的不同描述，从某个方面讲，就是他们描述的角度不同</p>
+<p>依赖注入是从应用程序的角度在描述，应用程序依赖容器创建并注入它所需要的外部资源</p>
+<p>控制反转是从容器的角度在描述，容器控制应用程序，而容器反向的向应用程序注入应用程序所需要的外部资源</p>
 
           
             <br>
@@ -554,7 +566,7 @@
           
         
           
-            <p>本文永久链接是：<a href=http://yoursite.com/2020/03/17/hello-world/>http://yoursite.com/2020/03/17/hello-world/</a></p>
+            <p>本文永久链接是：<a href=http://yoursite.com/2020/03/19/Spring%E4%B8%8ESpringMVC%E7%9A%84%E5%8C%BA%E5%88%AB/>http://yoursite.com/2020/03/19/Spring%E4%B8%8ESpringMVC%E7%9A%84%E5%8C%BA%E5%88%AB/</a></p>
           
         
       </blockquote>
@@ -596,10 +608,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-03-18T17:49:06+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-03-19T17:33:45+08:00">
   <a class='notlink'>
     <i class="fas fa-save" aria-hidden="true"></i>
-    <p>更新于：2020年3月18日</p>
+    <p>更新于：2020年3月19日</p>
   </a>
 </div>
 
@@ -608,7 +620,7 @@
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/william.github.io/tags/Hello-World/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i><p>Hello World</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/william.github.io/tags/Spring/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i><p>Spring</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/william.github.io/tags/SpringMVC/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i><p>SpringMVC</p></a></div>
 
 
         
@@ -626,7 +638,7 @@
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/03/17/hello-world/&title=Hello World - William's Blog&summary=Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub."
+          href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/03/19/Spring%E4%B8%8ESpringMVC%E7%9A%84%E5%8C%BA%E5%88%AB/&title=Spring与SpringMVC的区别 - William's Blog&summary=1.Spring的介绍​        Spring是一个一站式的框架，提供了表现层（SpringMVC）到业务层（Spring）再到数据层（SpringData)的全套解决方案；Spring的两大核心是IOC与AOP，IOC（控制反转，Inversion of Control）与AOP（面向切面编程，Asepct-Orentid-Programming）为程序解耦和代码的简洁提供了支持。"
           
           >
           
@@ -638,7 +650,7 @@
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://yoursite.com/2020/03/17/hello-world/&title=Hello World - William's Blog&summary=Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub."
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://yoursite.com/2020/03/19/Spring%E4%B8%8ESpringMVC%E7%9A%84%E5%8C%BA%E5%88%AB/&title=Spring与SpringMVC的区别 - William's Blog&summary=1.Spring的介绍​        Spring是一个一站式的框架，提供了表现层（SpringMVC）到业务层（Spring）再到数据层（SpringData)的全套解决方案；Spring的两大核心是IOC与AOP，IOC（控制反转，Inversion of Control）与AOP（面向切面编程，Asepct-Orentid-Programming）为程序解耦和代码的简洁提供了支持。"
           
           >
           
@@ -650,7 +662,7 @@
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
           
-          href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/03/17/hello-world/&title=Hello World - William's Blog&summary=Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub."
+          href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/03/19/Spring%E4%B8%8ESpringMVC%E7%9A%84%E5%8C%BA%E5%88%AB/&title=Spring与SpringMVC的区别 - William's Blog&summary=1.Spring的介绍​        Spring是一个一站式的框架，提供了表现层（SpringMVC）到业务层（Spring）再到数据层（SpringData)的全套解决方案；Spring的两大核心是IOC与AOP，IOC（控制反转，Inversion of Control）与AOP（面向切面编程，Asepct-Orentid-Programming）为程序解耦和代码的简洁提供了支持。"
           
           >
           
@@ -674,14 +686,21 @@
         
           <div class="prev-next">
             
-              <a class='prev' href='/william.github.io/2020/03/17/%E5%B8%B8%E8%A7%81%E7%9A%84%E5%87%A0%E7%A7%8D%E7%BC%93%E5%AD%98%E7%AE%97%E6%B3%95/'>
-                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>常见的几种缓存算法</p>
-                <p class='content'>缓存 : 凡是位于速度相差较大的两种硬件之间，用于协调两者数据传输速度差异的结构，均可称之为缓存（Cache）。
+              <a class='prev' href='/william.github.io/2020/03/19/SpringMVC%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>SpringMVC常用注解</p>
+                <p class='content'>　　Spring提供了一系列注解，有很多作用，此处对spring核心包注解和部分常用注解做归纳和总结。
 
-1.缓存相关概念​        
-​        因为内存相对于硬盘读写速...</p>
+
+
+** 组件型注解：**@Component 在类定义之前添加@Component注解...</p>
               </a>
             
+            
+              <a class='next' href='/william.github.io/2020/03/19/SpringMVC%E6%B5%81%E7%A8%8B/'>
+                <p class='title'>SpringMVC流程<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>SpringMVC是什么： 
+　　SpringMVC是一个MVC的开源框架，SpringMVC=Struts2+Spring，SpringMVC就相当于是Struts2加上Spring的整合，但...</p>
+              </a>
             
           </div>
         
@@ -723,7 +742,7 @@
 
   <script>
     window.subData = {
-      title: 'Hello World',
+      title: 'Spring与SpringMVC的区别',
       tools: true
     }
   </script>
@@ -749,7 +768,7 @@
 
 
     <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Spring的介绍"><span class="toc-text">1.Spring的介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-SpringMVC的介绍"><span class="toc-text">2.SpringMVC的介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-AOP与IOC"><span class="toc-text">3.AOP与IOC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-IOC与DI的区别与联系"><span class="toc-text">4.IOC与DI的区别与联系</span></a></li></ol>
     </div>
   </section>
 
